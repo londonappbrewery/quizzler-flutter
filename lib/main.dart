@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//new quiz app by Elderied
+
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
