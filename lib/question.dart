@@ -9,7 +9,7 @@ class Question {
   bool questionAnswers;
 
 
-  Question({String q, bool a}){
+  Question(String q, bool a){
 
 
     questionText = q;

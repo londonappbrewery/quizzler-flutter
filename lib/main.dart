@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'question.dart';
+import 'quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+QuizBrain quizBrain = QuizBrain();
+
+
 
 //new quiz app by Elderied
 
@@ -32,34 +37,47 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-/*
-  List<String> questions = [
-    'You can lead a cow down stairs but not up stairs.',
-    'Approximately one quarter of human bones are in the feet.',
-    'A slug\'s blood is green.',
 
-  ];
+  void checkAnswer(bool userPickAnswer){
+    bool correctAnswer = quizBrain.getQuestionAnswers();
+    setState(() {
+      if (quizBrain.isFinished() == true){
+        Alert(
+          context: context,
+          title: 'Finished',
+          desc: 'Game Over',
+          buttons: [
+            DialogButton(
+              child: Text(
+                "Start Over",
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () => Navigator.pop(context),
+              width: 120,
+            )
+          ],
 
-    List<bool> answers = [
-    false,
-  true,
-  true,
-  ];
+        ).show();
+        quizBrain.reset();
 
-*/
-
-  List <Question> questionBank=[
-
-    Question(q:'You can lead a cow down stairs but not up stairs.', a: false ),
-    Question(q:'Approximately one quarter of human bones are in the feet.', a: true ),
-    Question(q:'A slug\'s blood is green.', a: true ),
+        scoreKeeper = [];
 
 
 
-  ];
 
-  int questionNum = 0;
+      }else {
+        if (userPickAnswer == correctAnswer) {
+          scoreKeeper.add(Icon(Icons.check, color: Colors.green),);
+        } else {
+          scoreKeeper.add(Icon(Icons.close, color: Colors.red,),);
+        }
 
+        quizBrain.quizContinue();
+      }
+    });
+
+
+  }
 
 
   @override
@@ -74,7 +92,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionBank[questionNum].questionText,
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -99,16 +117,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                bool correctAnswer = questionBank[questionNum].questionAnswers;
-                if (correctAnswer == true){
+                checkAnswer(true);
 
-                } else {
-                  print('wrong');
-                }
-                setState(() {
-                  questionNum ++;
-
-                });
               },
             ),
           ),
@@ -127,7 +137,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                questionNum ++;
+               checkAnswer(false);
               },
             ),
           ),
