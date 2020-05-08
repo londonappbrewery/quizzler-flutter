@@ -1,7 +1,7 @@
 import 'question.dart';
 
 class QuizLogic {
-  List<Question> questions = [
+  List<Question> _questions = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -28,4 +28,16 @@ class QuizLogic {
         'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
         true),
   ];
+
+  String getQuestionText(int questionNumber) {
+    return _questions[questionNumber].getQuestion();
+  }
+
+  bool getQuestionAnswer(int questionNumber) {
+    return _questions[questionNumber].getAnswer();
+  }
+
+  int getQuestionAmount() {
+    return _questions.length;
+  }
 }

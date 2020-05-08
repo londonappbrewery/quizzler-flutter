@@ -32,7 +32,7 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> scores = [];
 
   void selectedTrue() {
-    if (quizLogic.questions[currentQuestion].answer) {
+    if (quizLogic.getQuestionAnswer(currentQuestion)) {
       // selected true and answer was true
       setState(() {
         scores.add(Icon(
@@ -50,7 +50,7 @@ class _QuizPageState extends State<QuizPage> {
       });
     }
 
-    if (currentQuestion < quizLogic.questions.length - 1) {
+    if (currentQuestion < quizLogic.getQuestionAmount() - 1) {
       setState(() {
         currentQuestion++;
       });
@@ -60,7 +60,7 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   void selectedFalse() {
-    if (quizLogic.questions[currentQuestion].answer) {
+    if (quizLogic.getQuestionAnswer(currentQuestion)) {
       // selected false but answer was true
       setState(() {
         scores.add(Icon(
@@ -78,7 +78,7 @@ class _QuizPageState extends State<QuizPage> {
       });
     }
 
-    if (currentQuestion < quizLogic.questions.length - 1) {
+    if (currentQuestion < quizLogic.getQuestionAmount() - 1) {
       setState(() {
         currentQuestion++;
       });
@@ -99,7 +99,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizLogic.questions[currentQuestion].question,
+                quizLogic.getQuestionText(currentQuestion),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
