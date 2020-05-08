@@ -1,6 +1,8 @@
 import 'question.dart';
 
 class QuizLogic {
+  int _questionNumber = 0;
+
   List<Question> _questions = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
@@ -29,15 +31,19 @@ class QuizLogic {
         true),
   ];
 
-  String getQuestionText(int questionNumber) {
-    return _questions[questionNumber].getQuestion();
+  void nextQuestion() {
+    if (_questionNumber < _questions.length - 1)
+      _questionNumber++;
+    else {
+      //TODO: game over
+    }
   }
 
-  bool getQuestionAnswer(int questionNumber) {
-    return _questions[questionNumber].getAnswer();
+  String getQuestionText() {
+    return _questions[_questionNumber].getQuestion();
   }
 
-  int getQuestionAmount() {
-    return _questions.length;
+  bool getQuestionAnswer() {
+    return _questions[_questionNumber].getAnswer();
   }
 }

@@ -1,4 +1,5 @@
 class Question {
+  // In dart, adding the '_' before the name of the variable makes it private
   String _question;
   bool _answer;
 

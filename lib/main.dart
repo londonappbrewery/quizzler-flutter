@@ -28,12 +28,10 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  int currentQuestion = 0;
   List<Icon> scores = [];
 
-  void selectedTrue() {
-    if (quizLogic.getQuestionAnswer(currentQuestion)) {
-      // selected true and answer was true
+  void checkAnswer(bool userPickedAnswer) {
+    if (quizLogic.getQuestionAnswer() == userPickedAnswer) {
       setState(() {
         scores.add(Icon(
           Icons.check,
@@ -41,7 +39,6 @@ class _QuizPageState extends State<QuizPage> {
         ));
       });
     } else {
-      // selected true but answer was false
       setState(() {
         scores.add(Icon(
           Icons.close,
@@ -50,41 +47,9 @@ class _QuizPageState extends State<QuizPage> {
       });
     }
 
-    if (currentQuestion < quizLogic.getQuestionAmount() - 1) {
-      setState(() {
-        currentQuestion++;
-      });
-    } else {
-      //TODO: game is over
-    }
-  }
-
-  void selectedFalse() {
-    if (quizLogic.getQuestionAnswer(currentQuestion)) {
-      // selected false but answer was true
-      setState(() {
-        scores.add(Icon(
-          Icons.close,
-          color: Colors.red,
-        ));
-      });
-    } else {
-      // selected false and answer was false
-      setState(() {
-        scores.add(Icon(
-          Icons.check,
-          color: Colors.green,
-        ));
-      });
-    }
-
-    if (currentQuestion < quizLogic.getQuestionAmount() - 1) {
-      setState(() {
-        currentQuestion++;
-      });
-    } else {
-      //TODO: game is over
-    }
+    setState(() {
+      quizLogic.nextQuestion();
+    });
   }
 
   @override
@@ -99,7 +64,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                quizLogic.getQuestionText(currentQuestion),
+                quizLogic.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -124,7 +89,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 // The user picked true.
-                selectedTrue();
+                checkAnswer(true);
               },
             ),
           ),
@@ -143,7 +108,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 // The user picked false.
-                selectedFalse();
+                checkAnswer(false);
               },
             ),
           ),
