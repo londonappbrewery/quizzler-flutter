@@ -43,6 +43,7 @@ class _QuizPageState extends State<QuizPage> {
           color: Colors.red,
         ));
       }
+
       quizLogic.nextQuestion();
     });
   }
