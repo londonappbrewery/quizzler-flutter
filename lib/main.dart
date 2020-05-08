@@ -31,23 +31,18 @@ class _QuizPageState extends State<QuizPage> {
   List<Icon> scores = [];
 
   void checkAnswer(bool userPickedAnswer) {
-    if (quizLogic.getQuestionAnswer() == userPickedAnswer) {
-      setState(() {
+    setState(() {
+      if (quizLogic.getQuestionAnswer() == userPickedAnswer) {
         scores.add(Icon(
           Icons.check,
           color: Colors.green,
         ));
-      });
-    } else {
-      setState(() {
+      } else {
         scores.add(Icon(
           Icons.close,
           color: Colors.red,
         ));
-      });
-    }
-
-    setState(() {
+      }
       quizLogic.nextQuestion();
     });
   }
