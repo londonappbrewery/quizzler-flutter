@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() => runApp(Quizzler());
 
@@ -7,7 +8,7 @@ class Quizzler extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: Colors.black38,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -32,16 +33,16 @@ class _QuizPageState extends State<QuizPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Expanded(
-          flex: 5,
+          flex: 4,
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(5.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                'HERE WE GO',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
-                  color: Colors.white,
+                  color: Colors.blue,
                 ),
               ),
             ),
@@ -49,12 +50,12 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(10.0),
             child: FlatButton(
               textColor: Colors.white,
               color: Colors.green,
               child: Text(
-                'True',
+                'TRUE',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20.0,
@@ -68,11 +69,11 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(11.0),
             child: FlatButton(
               color: Colors.red,
               child: Text(
-                'False',
+                'FALSE',
                 style: TextStyle(
                   fontSize: 20.0,
                   color: Colors.white,
