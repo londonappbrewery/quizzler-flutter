@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'classes/quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
@@ -66,14 +67,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  print(quizBrain.getListLength());
-                  bool correctAnswer = quizBrain.getAnswer();
-                  if (correctAnswer == false) {
-                    print('user got it right');
-                  } else {
-                    print('user got it wrong');
-                  }
-                  scoreKeeper.add(iconsBuilder(Icons.check, Colors.green));
+                  scoreKeeper.add(quizBrain.answerChecker(true));
                   quizBrain.nextQuestion();
                 });
                 //The user picked true.
@@ -96,14 +90,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
                 setState(() {
-                  print(quizBrain.getListLength());
-                  bool correctAnswer = quizBrain.getAnswer();
-                  if (correctAnswer == false) {
-                    print('user got it right');
-                  } else {
-                    print('user got it wrong');
-                  }
-                  scoreKeeper.add(iconsBuilder(Icons.close, Colors.red));
+                  scoreKeeper.add(quizBrain.answerChecker(false));
                   quizBrain.nextQuestion();
                 });
               },
@@ -116,11 +103,6 @@ class _QuizPageState extends State<QuizPage> {
       ],
     );
   }
-
-  Icon iconsBuilder(icon, color) => Icon(
-        icon,
-        color: color,
-      );
 }
 
 /*

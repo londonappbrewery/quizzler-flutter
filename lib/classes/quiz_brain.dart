@@ -1,4 +1,8 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'assert.dart';
+import 'package:quizzler/widget_builder.dart' as WidgetBuilder;
 
 class QuizBrain {
   int _questionNumber = 0;
@@ -47,6 +51,7 @@ class QuizBrain {
   getQuestion() => _questionsList[_questionNumber].question;
 
   getListLength() => _questionsList.length;
+  getQuestionNumber() => _questionNumber;
 
   nextQuestion() {
     if (_questionNumber < (_questionsList.length - 1)) _questionNumber++;
@@ -54,7 +59,19 @@ class QuizBrain {
 
   getAnswer() => _questionsList[_questionNumber].answer;
 
-  answerChecker(bool userAnswer, bool correctAnswer) {
-    // if()
+  Icon answerChecker(bool userAnswer) {
+    Icon response;
+    print("userAnswer: $userAnswer correctAnswer: ${(getAnswer())}");
+    (userAnswer == getAnswer())
+        ? response = WidgetBuilder.iconsBuilder(Icons.check, Colors.green)
+        : response = WidgetBuilder.iconsBuilder(Icons.close, Colors.red);
+    return response;
+  }
+
+  void gameListener(BuildContext context, resetCallBack) {
+    if (_questionNumber == (getListLength() - 1)) {
+      Alert(context: context, title: "It's over brah").show();
+      resetCallBack();
+    }
   }
 }
