@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'classes/quiz_brain.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
@@ -67,8 +66,10 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  scoreKeeper.add(quizBrain.answerChecker(true));
-                  quizBrain.nextQuestion();
+                  if (quizBrain.gameListener(context, reset)) {
+                    scoreKeeper.add(quizBrain.answerChecker(false));
+                    quizBrain.nextQuestion();
+                  }
                 });
                 //The user picked true.
               },
@@ -90,8 +91,10 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
                 setState(() {
-                  scoreKeeper.add(quizBrain.answerChecker(false));
-                  quizBrain.nextQuestion();
+                  if (quizBrain.gameListener(context, reset)) {
+                    scoreKeeper.add(quizBrain.answerChecker(false));
+                    quizBrain.nextQuestion();
+                  }
                 });
               },
             ),
@@ -102,6 +105,11 @@ class _QuizPageState extends State<QuizPage> {
         )
       ],
     );
+  }
+
+  reset() {
+    quizBrain.setQuestionNumber(0);
+    scoreKeeper = [];
   }
 }
 

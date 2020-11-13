@@ -52,6 +52,7 @@ class QuizBrain {
 
   getListLength() => _questionsList.length;
   getQuestionNumber() => _questionNumber;
+  setQuestionNumber(number) => _questionNumber = number;
 
   nextQuestion() {
     if (_questionNumber < (_questionsList.length - 1)) _questionNumber++;
@@ -68,10 +69,13 @@ class QuizBrain {
     return response;
   }
 
-  void gameListener(BuildContext context, resetCallBack) {
+  bool gameListener(BuildContext context, resetCallBack) {
+    bool result = true;
     if (_questionNumber == (getListLength() - 1)) {
       Alert(context: context, title: "It's over brah").show();
       resetCallBack();
+      result = false;
     }
+    return result;
   }
 }
