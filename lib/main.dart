@@ -67,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 setState(() {
                   if (quizBrain.gameListener(context, reset)) {
-                    scoreKeeper.add(quizBrain.answerChecker(false));
+                    scoreKeeper.add(quizBrain.answerChecker(true));
                     quizBrain.nextQuestion();
                   }
                 });
