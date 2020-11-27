@@ -1,61 +1,45 @@
-![App Brewery Banner](https://github.com/londonappbrewery/Images/blob/master/AppBreweryBanner.png)
-
 
 # Quizzler ❓
 
-## Our Goal
+## Preview
 
-In this tutorial we will be reviewing Stateful and Stateless Widgets as well as learning about the fundamental building blocks of Object Oriented Programming (OOP) - Classes and Objects. 
-
-
-## What you will create
-
-We’re going to make a quiz app that tests your general knowledge. As one of the most popular types of apps on the app stores, you can create your own quiz for other people to enjoy!
-
-![Finished App](https://github.com/londonappbrewery/Images/blob/master/quizzler-demo.gif)
-
-## What you will learn
-
-- Modularising your code into separate classes.
-- Dart classes and objects.
-- Using class constructors.
-- Extracting Widgets to refactor your code.
-- private and public modifiers in Dart.
-- How to use Dart lists.
-- The difference between var, const and final.
-
-## Code Snippet for Project
-
-```
-Question('Some cats are actually allergic to humans', true),
-    Question('You can lead a cow down stairs but not up stairs.', false),
-    Question('Approximately one quarter of human bones are in the feet.', true),
-    Question('A slug\'s blood is green.', true),
-    Question('Buzz Aldrin\'s mother\'s maiden name was \"Moon\".', true),
-    Question('It is illegal to pee in the Ocean in Portugal.', true),
-    Question(
-        'No piece of square dry paper can be folded in half more than 7 times.',
-        false),
-    Question(
-        'In London, UK, if you happen to die in the House of Parliament, you are technically entitled to a state funeral, because the building is considered too sacred a place.',
-        true),
-    Question(
-        'The loudest sound produced by any animal is 188 decibels. That animal is the African Elephant.',
-        false),
-    Question(
-        'The total surface area of two human lungs is approximately 70 square metres.',
-        true),
-    Question('Google was originally called \"Backrub\".', true),
-    Question(
-        'Chocolate affects a dog\'s heart and nervous system; a few ounces are enough to kill a small dog.',
-        true),
-    Question(
-        'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
-        true),
-
-```
+![App Preview](./assets/app-preview.png)
 
 
->This is a companion project to The App Brewery's Complete Flutter Development Bootcamp, check out the full course at [www.appbrewery.co](https://www.appbrewery.co/)
+This project is part of a series of projects to be completed by students of the [AppBrewery](https://www.appbrewery.co/p/flutter-development-bootcamp-with-dart) flutter course.
 
-![End Banner](https://github.com/londonappbrewery/Images/blob/master/readme-end-banner.png)
+This project focuses on creating a Quizz app.
+
+## 🧮 The Project Brief
+
+The premise of this project is to learn how to build several classes to have a better code structure using OOP principles like Polymorphism, Abstraction, Encapsulation and Inheritance, by building a Question True/False UI.
+
+## 🧬 Technologies & Languages Used
+
+- Dart
+- Flutter
+- Github
+
+## 🛎️ Contributions, Issues & Forking
+
+If you have any issues setting up the project or you come across any unintended bugs or problems, please do submit an issue to the [Quizz app](https://github.com/Psiale/quizzler-flutter/issues) page.
+
+If you want to make your own changes, modifications or improvements to our project, go ahead and Fork it!
+1. [Fork it](https://github.com/Psiale/quizzler-flutter/fork)
+
+2. Create your working branch (git checkout -b [choose-a-name])
+
+3. Commit your changes (git commit -m 'what this commit will fix/add/improve')
+4. Push to the branch (git push origin [chosen-name])
+5. Create a new Pull Request
+
+## 🤟🏽😄 😛🤙🏾  Creator
+
+Alexis Sanchez 
+- [Github](https://github.com/Psiale)
+- [Linkedin](https://www.linkedin.com/in/alexis-sanchez-dev/)
+
+## 🙌🏾 Show Your Support
+
+Give a ⭐️ if you like this project!
+

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'classes/assert.dart';
+import 'classes/quiz_brain.dart';
 
+QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
@@ -28,19 +29,6 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
-  List<Assert> questionsList = [
-    Assert(
-        question: 'You can lead a cow down stairs but not up stairs',
-        answer: false),
-    Assert(
-        question: 'Approximately one quarter of human bones are in the feet.',
-        answer: true),
-    Assert(question: 'A slug\'s blood is green.', answer: true)
-  ];
-  int questionNumber = 0;
-  questionTracker(length) {
-    if (questionNumber < (length - 1)) questionNumber++;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +41,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionsList[questionNumber].question,
+                quizBrain.getQuestion(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -78,9 +66,9 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  questionTracker(questionsList.length);
-                  if (questionNumber < (questionsList.length - 1)) {
-                    scoreKeeper.add(iconsBuilder(Icons.check, Colors.green));
+                  if (quizBrain.gameListener(context, reset)) {
+                    scoreKeeper.add(quizBrain.answerChecker(true));
+                    quizBrain.nextQuestion();
                   }
                 });
                 //The user picked true.
@@ -103,9 +91,10 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 //The user picked false.
                 setState(() {
-                  questionTracker(questionsList.length);
-                  if (questionNumber < (questionsList.length - 1))
-                    scoreKeeper.add(iconsBuilder(Icons.close, Colors.red));
+                  if (quizBrain.gameListener(context, reset)) {
+                    scoreKeeper.add(quizBrain.answerChecker(false));
+                    quizBrain.nextQuestion();
+                  }
                 });
               },
             ),
@@ -118,10 +107,10 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
-  Icon iconsBuilder(icon, color) => Icon(
-        icon,
-        color: color,
-      );
+  reset() {
+    quizBrain.setQuestionNumber(0);
+    scoreKeeper = [];
+  }
 }
 
 /*
