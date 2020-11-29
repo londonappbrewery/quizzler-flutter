@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'classes/quiz_brain.dart';
+import 'package:toggle_switch/toggle_switch.dart';
+import 'package:quizzler/spanish_questions.dart';
+import 'package:quizzler/english_questions.dart';
+
+SpanishQuestions spanishQuestions = SpanishQuestions();
+EnglishQuestions englishQuestions = EnglishQuestions();
 
 QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
@@ -35,6 +41,7 @@ class _QuizPageState extends State<QuizPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
+        toggleBuilder(),
         Expanded(
           flex: 5,
           child: Padding(
@@ -110,6 +117,22 @@ class _QuizPageState extends State<QuizPage> {
   reset() {
     quizBrain.setQuestionNumber(0);
     scoreKeeper = [];
+  }
+
+  ToggleSwitch toggleBuilder() {
+    return ToggleSwitch(
+      initialLabelIndex: 1,
+      labels: ['Español', 'English'],
+      onToggle: (int i) {
+        print('switched to $i');
+        setState(() {
+          (i == 1)
+              ? quizBrain.setList(englishQuestions.getEnglishQuestions())
+              : quizBrain.setList(spanishQuestions.getSpanishQuestions());
+        });
+      },
+      // TODO: put this on main and implement the change language
+    );
   }
 }
 
