@@ -120,16 +120,18 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   ToggleSwitch toggleBuilder() {
+    int initialIndex = 0;
     return ToggleSwitch(
-      initialLabelIndex: 1,
+      initialLabelIndex: initialIndex,
       labels: ['Español', 'English'],
       onToggle: (int i) {
-        print('switched to $i');
         setState(() {
+          initialIndex = i;
           (i == 1)
               ? quizBrain.setList(englishQuestions.getEnglishQuestions())
               : quizBrain.setList(spanishQuestions.getSpanishQuestions());
         });
+        print('switched to $i');
       },
       // TODO: put this on main and implement the change language
     );
