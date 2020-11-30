@@ -6,6 +6,7 @@ import 'package:quizzler/english_questions.dart';
 
 SpanishQuestions spanishQuestions = SpanishQuestions();
 EnglishQuestions englishQuestions = EnglishQuestions();
+int initialIndex = 0;
 
 QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
@@ -120,20 +121,18 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   ToggleSwitch toggleBuilder() {
-    int initialIndex = 0;
     return ToggleSwitch(
       initialLabelIndex: initialIndex,
       labels: ['Español', 'English'],
       onToggle: (int i) {
+        print('switched to $i');
         setState(() {
           initialIndex = i;
           (i == 1)
               ? quizBrain.setList(englishQuestions.getEnglishQuestions())
               : quizBrain.setList(spanishQuestions.getSpanishQuestions());
         });
-        print('switched to $i');
       },
-      // TODO: put this on main and implement the change language
     );
   }
 }
