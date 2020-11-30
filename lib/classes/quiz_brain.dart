@@ -10,6 +10,7 @@ EnglishQuestions englishQuestions = EnglishQuestions();
 
 class QuizBrain {
   int _questionNumber = 0;
+  int _correctAnswers = 0;
   List _questionsList = spanishQuestions.getSpanishQuestions();
 
   getQuestion() => _questionsList[_questionNumber].question;
@@ -27,19 +28,38 @@ class QuizBrain {
   Icon answerChecker(bool userAnswer) {
     Icon response;
     print("userAnswer: $userAnswer correctAnswer: ${(getAnswer())}");
-    (userAnswer == getAnswer())
-        ? response = WidgetBuilder.iconsBuilder(Icons.check, Colors.green)
-        : response = WidgetBuilder.iconsBuilder(Icons.close, Colors.red);
+    if (userAnswer == getAnswer()) {
+      response = WidgetBuilder.iconsBuilder(Icons.check, Colors.green);
+      _correctAnswers++;
+    } else {
+      response = WidgetBuilder.iconsBuilder(Icons.close, Colors.red);
+    }
     return response;
   }
 
   bool gameListener(BuildContext context, resetCallBack) {
     bool result = true;
     if (_questionNumber == (getListLength() - 1)) {
-      Alert(context: context, title: "It's over brah").show();
+      Alert(
+              context: context,
+              buttons: [
+                DialogButton(
+                  color: Colors.blue,
+                  child:
+                      WidgetBuilder.iconsBuilder(Icons.refresh, Colors.white),
+                  onPressed: () => Navigator.pop(context),
+                  width: 120,
+                )
+              ],
+              title:
+                  " Lograste $_correctAnswers respuestas correctas.\n You got $_correctAnswers correct answers.")
+          .show();
       resetCallBack();
       result = false;
+      _correctAnswers = 0;
     }
     return result;
   }
+
+  setList(list) => _questionsList = list;
 }

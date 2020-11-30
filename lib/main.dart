@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'classes/quiz_brain.dart';
+import 'package:toggle_switch/toggle_switch.dart';
+import 'package:quizzler/spanish_questions.dart';
+import 'package:quizzler/english_questions.dart';
+
+SpanishQuestions spanishQuestions = SpanishQuestions();
+EnglishQuestions englishQuestions = EnglishQuestions();
+int initialIndex = 0;
 
 QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
@@ -35,6 +42,7 @@ class _QuizPageState extends State<QuizPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
+        toggleBuilder(),
         Expanded(
           flex: 5,
           child: Padding(
@@ -111,10 +119,31 @@ class _QuizPageState extends State<QuizPage> {
     quizBrain.setQuestionNumber(0);
     scoreKeeper = [];
   }
-}
 
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/
+  toggleBuilder() {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(top: 15.0),
+        child: ToggleSwitch(
+          minWidth: 90.0,
+          cornerRadius: 10.0,
+          activeBgColor: Colors.white,
+          activeFgColor: Colors.blue,
+          inactiveBgColor: Colors.blue.shade900,
+          inactiveFgColor: Colors.grey,
+          initialLabelIndex: initialIndex,
+          labels: ['Español', 'English'],
+          onToggle: (int i) {
+            print('switched to $i');
+            setState(() {
+              initialIndex = i;
+              (i == 1)
+                  ? quizBrain.setList(englishQuestions.getEnglishQuestions())
+                  : quizBrain.setList(spanishQuestions.getSpanishQuestions());
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
