@@ -1,11 +1,6 @@
 
 # Quizzler ❓
 
-## Preview
-
-![App Preview](./assets/app-preview.png)
-
-
 This project is part of a series of projects to be completed by students of the [AppBrewery](https://www.appbrewery.co/p/flutter-development-bootcamp-with-dart) flutter course.
 
 This project focuses on creating a Quizz app.
@@ -14,11 +9,32 @@ This project focuses on creating a Quizz app.
 
 The premise of this project is to learn how to build several classes to have a better code structure using OOP principles like Polymorphism, Abstraction, Encapsulation and Inheritance, by building a Question True/False UI.
 
+## 🎯 Features
+
+* You can switch between English and Spanish by touching the toggle button
+
+#### English
+![App Preview](./assets/english_quizzler.png)
+
+#### Spanish 
+![App Preview](./assets/español_quizzler.png)
+
+* You can see if your answers where right or wrong with a live update at the bottom of the screen
+
+#### Right or Wrong?
+![App Preview](./assets/resultados_quizzler.png)
+
+* You get the number of correct answers at the end of the game 
+
+#### Results
+![App Preview](./assets/alert_quizzler.png)
+
 ## 🧬 Technologies & Languages Used
 
 - Dart
 - Flutter
 - Github
+
 
 ## 🛎️ Contributions, Issues & Forking
 
