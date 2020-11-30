@@ -120,25 +120,30 @@ class _QuizPageState extends State<QuizPage> {
     scoreKeeper = [];
   }
 
-  ToggleSwitch toggleBuilder() {
-    return ToggleSwitch(
-      initialLabelIndex: initialIndex,
-      labels: ['Español', 'English'],
-      onToggle: (int i) {
-        print('switched to $i');
-        setState(() {
-          initialIndex = i;
-          (i == 1)
-              ? quizBrain.setList(englishQuestions.getEnglishQuestions())
-              : quizBrain.setList(spanishQuestions.getSpanishQuestions());
-        });
-      },
+  toggleBuilder() {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(top: 15.0),
+        child: ToggleSwitch(
+          minWidth: 90.0,
+          cornerRadius: 10.0,
+          activeBgColor: Colors.black,
+          activeFgColor: Colors.white,
+          inactiveBgColor: Colors.grey.shade700,
+          inactiveFgColor: Colors.white,
+          initialLabelIndex: initialIndex,
+          labels: ['Español', 'English'],
+          onToggle: (int i) {
+            print('switched to $i');
+            setState(() {
+              initialIndex = i;
+              (i == 1)
+                  ? quizBrain.setList(englishQuestions.getEnglishQuestions())
+                  : quizBrain.setList(spanishQuestions.getSpanishQuestions());
+            });
+          },
+        ),
+      ),
     );
   }
 }
-
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/

@@ -10,6 +10,7 @@ EnglishQuestions englishQuestions = EnglishQuestions();
 
 class QuizBrain {
   int _questionNumber = 0;
+  int _correctAnswers = 0;
   List _questionsList = englishQuestions.getEnglishQuestions();
 
   getQuestion() => _questionsList[_questionNumber].question;
