@@ -127,10 +127,10 @@ class _QuizPageState extends State<QuizPage> {
         child: ToggleSwitch(
           minWidth: 90.0,
           cornerRadius: 10.0,
-          activeBgColor: Colors.black,
-          activeFgColor: Colors.white,
-          inactiveBgColor: Colors.grey.shade700,
-          inactiveFgColor: Colors.white,
+          activeBgColor: Colors.white,
+          activeFgColor: Colors.blue,
+          inactiveBgColor: Colors.blue.shade900,
+          inactiveFgColor: Colors.grey,
           initialLabelIndex: initialIndex,
           labels: ['Español', 'English'],
           onToggle: (int i) {
