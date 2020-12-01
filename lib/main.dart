@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
+import 'classes/quiz_brain.dart';
+import 'package:toggle_switch/toggle_switch.dart';
+import 'package:quizzler/spanish_questions.dart';
+import 'package:quizzler/english_questions.dart';
 
+SpanishQuestions spanishQuestions = SpanishQuestions();
+EnglishQuestions englishQuestions = EnglishQuestions();
+int initialIndex = 0;
+
+QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
         body: SafeArea(
@@ -25,19 +35,21 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
+        toggleBuilder(),
         Expanded(
           flex: 5,
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                quizBrain.getQuestion(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -61,6 +73,12 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                setState(() {
+                  if (quizBrain.gameListener(context, reset)) {
+                    scoreKeeper.add(quizBrain.answerChecker(true));
+                    quizBrain.nextQuestion();
+                  }
+                });
                 //The user picked true.
               },
             ),
@@ -80,18 +98,52 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                setState(() {
+                  if (quizBrain.gameListener(context, reset)) {
+                    scoreKeeper.add(quizBrain.answerChecker(false));
+                    quizBrain.nextQuestion();
+                  }
+                });
               },
             ),
           ),
         ),
-        //TODO: Add a Row here as your score keeper
+        Row(
+          children: scoreKeeper,
+        )
       ],
     );
   }
-}
 
-/*
-question1: 'You can lead a cow down stairs but not up stairs.', false,
-question2: 'Approximately one quarter of human bones are in the feet.', true,
-question3: 'A slug\'s blood is green.', true,
-*/
+  reset() {
+    quizBrain.setQuestionNumber(0);
+    scoreKeeper = [];
+  }
+
+  toggleBuilder() {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.only(top: 15.0),
+        child: ToggleSwitch(
+          minWidth: 90.0,
+          cornerRadius: 10.0,
+          activeBgColor: Colors.white,
+          activeFgColor: Colors.blue,
+          inactiveBgColor: Colors.blue.shade900,
+          inactiveFgColor: Colors.grey,
+          initialLabelIndex: initialIndex,
+          labels: ['Español', 'English'],
+          onToggle: (int i) {
+            print('switched to $i');
+            setState(() {
+              initialIndex = i;
+              (i == 1)
+                  ? quizBrain.setList(englishQuestions.getEnglishQuestions())
+                  : quizBrain.setList(spanishQuestions.getSpanishQuestions());
+            });
+          },
+        ),
+      ),
+    );
+  }
+}
