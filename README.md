@@ -5,6 +5,10 @@ This project is part of a series of projects to be completed by students of the 
 
 This project focuses on creating a Quizz app.
 
+## Preview
+
+![App preview](./assets/app_preview.gif)
+
 ## 🧮 The Project Brief
 
 The premise of this project is to learn how to build several classes to have a better code structure using OOP principles like Polymorphism, Abstraction, Encapsulation and Inheritance, by building a Question True/False UI.
