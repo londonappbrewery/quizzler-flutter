@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'questionBrain.dart';
 
+QuestionBrain questionBrain = QuestionBrain();
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
         body: SafeArea(
@@ -25,6 +28,8 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Widget> scoreKeeper = []; //iconos
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questionBrain.getPreguntasText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -61,7 +66,12 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked true.
+                bool resp = questionBrain.getPreguntasRespuesta();
+                if (resp == true) {
+                } else {}
+                setState(() {
+                  questionBrain.nextQuestion();
+                });
               },
             ),
           ),
@@ -79,12 +89,24 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                bool resp = questionBrain.getPreguntasRespuesta();
+                if (resp == false) {
+                } else {}
+                setState(() {
+                  questionBrain.nextQuestion();
+                });
               },
             ),
           ),
         ),
         //TODO: Add a Row here as your score keeper
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: scoreKeeper,
+          ),
+        ),
       ],
     );
   }
