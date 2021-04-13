@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quizzler/question.dart';
+import 'question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -6,6 +8,7 @@ class Quizzler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.grey.shade900,
         body: SafeArea(
@@ -25,6 +28,37 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+
+  // List<String> questions = [
+  //   'You can lead a cow down stairs but not up stairs.',
+  //   'Approximately one quarter of human bones are in the feet.',
+  //   'A slug\'s blood is green.'
+  // ];
+  //
+  // List<bool> answers = [false, true, true];
+  //
+  // Question q1 = Question(
+  //   q: 'You can lead a cow down stairs but not up stairs.', a: false,
+  // );
+
+  List<Question> questionBank = [
+    Question(
+      q: 'You can lead a cow down stairs but not up stairs.',
+      a: false,
+    ),
+    Question(
+      q: 'Approximately one quarter of human bones are in the feet.',
+      a: true,
+    ),
+    Question(
+      q: 'A slug\'s blood is green.',
+      a: true,
+    ),
+  ];
+
+  int questionNo = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +71,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questionBank[questionNo].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -49,10 +83,12 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(15.0),
-            child: FlatButton(
-              textColor: Colors.white,
-              color: Colors.green,
+            padding: const EdgeInsets.all(15.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.green,
+                //textStyle: TextStyle(color: Colors.white),
+              ),
               child: Text(
                 'True',
                 style: TextStyle(
@@ -61,32 +97,60 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked true.
+                setState(() {
+                  bool correctAnswer = questionBank[questionNo].questionAnswer;
+                  if (correctAnswer == true) {
+                    print('User got it right');
+                  } else {
+                    print('User got it wrong');
+                  }
+                  questionNo++;
+                });
               },
             ),
           ),
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
             child: TextButton(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.red,
+                //textStyle: TextStyle(color: Colors.white),
               ),
               child: Text(
                 'False',
                 style: TextStyle(
-                  fontSize: 20.0,
                   color: Colors.white,
+                  fontSize: 20.0,
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                bool correctAnswer = questionBank[questionNo].questionAnswer;
+                if (correctAnswer == false) {
+                  print('User got it right');
+                } else {
+                  print('User got it wrong');
+                }
+                setState(() {
+                  questionNo++;
+                });
               },
             ),
           ),
         ),
-        //TODO: Add a Row here as your score keeper
+        Row(
+          children: [
+            Icon(
+              Icons.check,
+              color: Colors.green,
+            ),
+            Icon(
+              Icons.close,
+              color: Colors.red,
+            )
+          ],
+        )
       ],
     );
   }
