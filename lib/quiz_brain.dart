@@ -27,8 +27,23 @@ class QuizBrain {
     if (_questionNo < _questionBank.length - 1) {
       _questionNo++;
     }
-    print(_questionNo);
-    print(_questionBank.length);
+    // print(_questionNo);
+    // print(_questionBank.length);
+  }
+
+  bool isFinished() {
+    if (_questionNo == _questionBank.length - 1) {
+      // print('isFinished Called $_questionNo');
+      return true;
+    } else {
+      return false;
+    }
+    print('isFinished Called $_questionNo');
+    // return _questionNo == 12 ? true : false;
+  }
+
+  void reset() {
+    _questionNo = 0;
   }
 
   List<Question> _questionBank = [
