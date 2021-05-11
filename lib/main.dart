@@ -37,10 +37,10 @@ class _QuizPageState extends State<QuizPage> {
         Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where question text will go',
+                'This is where the question text will go',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
