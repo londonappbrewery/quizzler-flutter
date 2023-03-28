@@ -1,8 +1,9 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:quizzler/question.dart';
+import 'quizBrain.dart';
 
+QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
@@ -30,13 +31,6 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> myIcons = [];
   int qno = 0;
-
-  List<Question> questionBank = [
-    Question(q: 'Python is used to write Flutter Code', a: false),
-    Question(q: 'Flutter is developed by Google', a: true),
-    Question(q: 'Some ramdom true question', a: true),
-    Question(q: 'You Have completed the quiz', a: true)
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +63,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questionBank[qno].questionText,
+                quizBrain.getQuestionText(qno),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -96,8 +90,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  if (qno < questionBank.length - 1) {
-                    if (questionBank[qno].questionAnswer == true) {
+                  if (qno < quizBrain.questionBankLenght() - 1) {
+                    if (quizBrain.getAnswer(qno) == true) {
                       myIcons.add(
                         Icon(
                           Icons.check,
@@ -136,8 +130,8 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  if (qno < questionBank.length - 1) {
-                    if (questionBank[qno].questionAnswer == false) {
+                  if (qno < quizBrain.questionBankLenght() - 1) {
+                    if (quizBrain.getAnswer(qno) == false) {
                       myIcons.add(
                         Icon(
                           Icons.check,
