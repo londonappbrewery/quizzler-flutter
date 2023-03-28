@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:quizzler/question.dart';
 
 void main() => runApp(Quizzler());
 
@@ -29,14 +30,13 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> myIcons = [];
   int qno = 0;
-  List<String> questions = [
-    'Python is used to write Flutter Code',
-    'Flutter is developed by Google',
-    'Some ramdom true question',
-    'You Have completed the quiz',
-  ];
 
-  List<bool> answers = [false, true, true];
+  List<Question> questionBank = [
+    Question(q: 'Python is used to write Flutter Code', a: false),
+    Question(q: 'Flutter is developed by Google', a: true),
+    Question(q: 'Some ramdom true question', a: true),
+    Question(q: 'You Have completed the quiz', a: true)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -44,13 +44,32 @@ class _QuizPageState extends State<QuizPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            TextButton(
+                style: TextButton.styleFrom(backgroundColor: Colors.black45),
+                onPressed: () {
+                  setState(() {
+                    myIcons.clear();
+                    qno = 0;
+                  });
+                },
+                child: Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                  weight: 10.0,
+                  size: 30.0,
+                ))
+          ],
+        ),
         Expanded(
           flex: 5,
           child: Padding(
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                questions[qno],
+                questionBank[qno].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -77,15 +96,23 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  if (qno < questions.length - 1) {
-                    if()
+                  if (qno < questionBank.length - 1) {
+                    if (questionBank[qno].questionAnswer == true) {
+                      myIcons.add(
+                        Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        ),
+                      );
+                    } else {
+                      myIcons.add(
+                        Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        ),
+                      );
+                    }
                     qno++;
-                    myIcons.add(
-                      Icon(
-                        Icons.check,
-                        color: Colors.green,
-                      ),
-                    );
                   }
                 });
                 //The user picked true.
@@ -109,14 +136,23 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 setState(() {
-                  if (qno < questions.length - 1) {
+                  if (qno < questionBank.length - 1) {
+                    if (questionBank[qno].questionAnswer == false) {
+                      myIcons.add(
+                        Icon(
+                          Icons.check,
+                          color: Colors.green,
+                        ),
+                      );
+                    } else {
+                      myIcons.add(
+                        Icon(
+                          Icons.close,
+                          color: Colors.red,
+                        ),
+                      );
+                    }
                     qno++;
-                    myIcons.add(
-                      Icon(
-                        Icons.close,
-                        color: Colors.red,
-                      ),
-                    );
                   }
                 });
                 //The user picked false.
